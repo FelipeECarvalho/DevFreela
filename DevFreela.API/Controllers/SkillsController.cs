@@ -13,7 +13,7 @@ namespace DevFreela.API.Controllers
         }
 
         [HttpGet]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public IActionResult GetById(int id)
         {
             return Ok();
