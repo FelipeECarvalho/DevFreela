@@ -24,7 +24,6 @@ namespace DevFreela.API
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();
