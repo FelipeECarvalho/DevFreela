@@ -1,12 +1,15 @@
 ﻿using DevFreela.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace DevFreela.API.Controllers
 {
     [ApiController]
     [Route("api/v1/projects")]
-    public class ProjectsController : ControllerBase
+    public class ProjectsController(IOptions<FreelanceTotalCostConfig> options) : ControllerBase
     {
+        private readonly FreelanceTotalCostConfig _options = options.Value;
+
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -28,6 +31,9 @@ namespace DevFreela.API.Controllers
         [HttpPost]
         public IActionResult Post(CreateProjectInputModel model)
         {
+            if (model.TotalCost < _options.Minimum || model.TotalCost > _options.Maximum)
+                return BadRequest("Invalid value for total cost");
+
             return CreatedAtAction(nameof(GetById), new { id = 1 }, model);
         }
 
