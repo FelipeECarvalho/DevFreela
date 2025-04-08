@@ -1,3 +1,4 @@
+using DevFreela.API.ExceptionHandler;
 using DevFreela.API.Models;
 
 namespace DevFreela.API
@@ -13,6 +14,9 @@ namespace DevFreela.API
                 builder.Configuration.GetSection("FreelanceTotalCostConfig")
             );
 
+            builder.Services.AddExceptionHandler<ApiExceptionHandler>();
+            builder.Services.AddProblemDetails();
+
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
@@ -26,6 +30,8 @@ namespace DevFreela.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseExceptionHandler();
 
             app.UseHttpsRedirection();
 
