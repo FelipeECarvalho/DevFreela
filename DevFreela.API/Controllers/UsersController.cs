@@ -36,5 +36,15 @@ namespace DevFreela.API.Controllers
         {
             return NoContent();
         }
+
+        [HttpPut("{id:int}/profile-picture")]
+        public IActionResult PutProfilePicture(int id, IFormFile file)
+        {
+            var description = $"file name: {file.FileName}, length: {file.Length}";
+
+            // process file
+
+            return Ok(description);
+        }
     }
 }
